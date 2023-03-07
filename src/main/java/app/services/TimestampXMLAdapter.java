@@ -1,4 +1,4 @@
-package services;
+package app.services;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 

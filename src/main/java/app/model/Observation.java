@@ -1,10 +1,10 @@
-package model;
+package app.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.Data;
-import services.TimestampXMLAdapter;
+import app.services.TimestampXMLAdapter;
 
 import java.sql.Timestamp;
 import java.util.List;

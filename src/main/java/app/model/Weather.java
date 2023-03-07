@@ -1,8 +1,7 @@
-package model;
+package app.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
 
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
@@ -15,7 +14,8 @@ import java.sql.Timestamp;
 @Entity
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Weather {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
 
@@ -23,13 +23,16 @@ public class Weather {
     private Integer wmocode;
 
     @XmlElement(name = "airtemperature")
+    @Column(name = "airtemperature")
     private Double airTemperature;
     @XmlElement(name = "windspeed")
-
+    @Column(name = "windspeed")
     private Double windSpeed;
 
+    @Column(name = "phenomenon")
     private String phenomenon;
 
+    @Column(name = "timestamp")
     private Timestamp timestamp;
 
 }
