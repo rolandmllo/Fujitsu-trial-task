@@ -12,10 +12,10 @@ import org.springframework.stereotype.Service;
 public class SearchService {
 
     @Autowired
-    CityRepository cityRepository;
+    private CityRepository cityRepository;
 
     @Autowired
-    VehicleRepository vehicleRepository;
+    private VehicleRepository vehicleRepository;
 
 
     public PriceModel ReadInputs(String cityInput, String vehicleInput, PriceModel priceModel){
@@ -31,7 +31,7 @@ public class SearchService {
     }
 
     private Vehicle GetVehicle(String vehicle) {
-        return vehicleRepository.findByVehicleName(vehicle);
+        return vehicleRepository.findByVehicleType(vehicle);
     }
 
     private City GetCity(String city){

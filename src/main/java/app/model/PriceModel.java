@@ -13,8 +13,4 @@ public class PriceModel {
     private Boolean forbidden = false;
     private Double totalPrice;
 
-    public double GetTotalPrice(){
-        return totalPrice;
-    }
-
 }

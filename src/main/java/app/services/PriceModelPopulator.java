@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 public class PriceModelPopulator {
 
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
+    @Autowired
+    private FeesCalculator feesCalculator;
 
     private PriceModel priceModel;
 
@@ -16,6 +18,7 @@ public class PriceModelPopulator {
         priceModel = new PriceModel();
 
         searchService.ReadInputs(cityInput, vehicleInput, priceModel);
+        feesCalculator.calculateFees(priceModel);
 
 
 

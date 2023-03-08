@@ -27,7 +27,6 @@ public class WeatherService {
 
     public Observation ParseXMLFromUrl(String inputUrl) {
 
-
         try (InputStream input = new URL(inputUrl).openStream()){
             return ParseXML(input);
         } catch (IOException e) {
