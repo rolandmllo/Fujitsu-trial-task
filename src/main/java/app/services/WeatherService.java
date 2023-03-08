@@ -1,11 +1,16 @@
 package app.services;
 
+import app.Dao.CityRepository;
 import app.Dao.WeatherRepository;
+import app.model.City;
+import app.model.Weather;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import app.model.Observation;
-import app.model.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -15,28 +20,52 @@ import java.util.List;
 
 @Service
 public class WeatherService {
+    private static final String WEATHER_API_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
     @Autowired
     private WeatherRepository weatherRepository;
-    public void addWeatherToDatabase(Weather weather){
-        weatherRepository.save(weather);
+    @Autowired
+    private CityRepository cityRepository;
 
-    }    public List<Weather> getAll(){
-        return weatherRepository.findAll();
-
+    @EventListener(ApplicationReadyEvent.class)
+    private void onStartup() {
+        updateWeatherData();
     }
 
-    public Observation ParseXMLFromUrl(String inputUrl) {
+    @Scheduled(cron="0 15 0 * * ?")
+    private void onSchedule() {
+        updateWeatherData();
+    }
+
+    private void updateWeatherData(){
+        Observation observationData = parseXMLFromUrl(WEATHER_API_URL);
+        persistRelatedWeatherData(observationData);
+        System.out.println("Weather updated");
+    }
+    private void persistRelatedWeatherData(Observation observationData){
+        List<City> cityList = cityRepository.findAll();
+
+        for (Weather station : observationData.getStations()) {
+            for (City city : cityList) {
+                if (station.getName().equals(city.getWeatherObservationStation())){
+                    station.setTimestamp(observationData.getTimestamp());
+                    weatherRepository.save(station);
+                }
+            }
+        }
+    }
+
+
+    public Observation parseXMLFromUrl(String inputUrl) {
 
         try (InputStream input = new URL(inputUrl).openStream()){
-            return ParseXML(input);
+            return parseXML(input);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
 
-
-    public Observation ParseXML(InputStream xmlInput) {
+    public Observation parseXML(InputStream xmlInput) {
 
         Observation observations;
 
@@ -51,5 +80,4 @@ public class WeatherService {
 
         return observations;
     }
-
 }

@@ -1,6 +1,7 @@
 import app.model.Weather;
 import org.junit.jupiter.api.Test;
 import app.services.WeatherService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
@@ -8,6 +9,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = app.Application.class)
 public class WeatherUnitTests {
+    @Autowired
+    WeatherService weatherService;
 
 
     @Test
@@ -16,8 +19,7 @@ public class WeatherUnitTests {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("observationData.xml");
 
-        WeatherService ws = new WeatherService();
-        var result = ws.ParseXML(is);
+        var result = weatherService.parseXML(is);
 
         assertThat(result.getStations())
                 .extracting(Weather::getName)
@@ -31,8 +33,7 @@ public class WeatherUnitTests {
 
         String URL = "https://ilmateenistus.ee/ilma_andmed/xml/observations.php";
 
-        WeatherService ws = new WeatherService();
-        var result = ws.ParseXMLFromUrl(URL);
+        var result = weatherService.parseXMLFromUrl(URL);
 
         assertThat(result.getStations())
                 .extracting(Weather::getName)
@@ -44,11 +45,8 @@ public class WeatherUnitTests {
 
     @Test
     public void shouldAddWeatherDataToDatabase(){
-        WeatherService ws = new WeatherService();
         Weather weather = new Weather();
         weather.setName("testest");
-
-        ws.addWeatherToDatabase(weather);
 
     }
 
