@@ -26,7 +26,7 @@ public class WeatherService {
     @Autowired
     private CityRepository cityRepository;
 
-    @EventListener(ApplicationReadyEvent.class)
+    //@EventListener(ApplicationReadyEvent.class)
     private void onStartup() {
         updateWeatherData();
     }

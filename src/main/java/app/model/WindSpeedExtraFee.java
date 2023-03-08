@@ -1,9 +1,15 @@
 package app.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@Entity
+@Data
+@EqualsAndHashCode(callSuper = false)
 public class WindSpeedExtraFee extends BaseEntity{
     private Double windSpeedExtraFee;
 

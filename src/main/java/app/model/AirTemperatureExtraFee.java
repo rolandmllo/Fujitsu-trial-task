@@ -18,6 +18,8 @@ public class AirTemperatureExtraFee extends BaseEntity{
     private Double lowerTemp;
     private Double higherTemp;
 
+    private Boolean forbidden = false;
+
     @OneToOne(cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
