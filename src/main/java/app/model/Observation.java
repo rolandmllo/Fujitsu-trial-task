@@ -3,7 +3,7 @@ package app.model;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.Data;
-import app.services.TimestampXMLAdapter;
+import app.services.helper.TimestampXMLAdapter;
 import java.sql.Timestamp;
 import java.util.List;
 
