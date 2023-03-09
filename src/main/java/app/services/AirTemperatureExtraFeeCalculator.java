@@ -14,11 +14,11 @@ public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
     @Override
     public PriceModel setFeeRate(PriceModel priceModel){
 
-        Double windTemperature = priceModel.getWeather().getWindSpeed();
+        Double airTemperature = priceModel.getWeather().getAirTemperature();
         Long vehicleId = priceModel.getVehicle().getId();
 
         AirTemperatureExtraFee airTemperatureExtraFee = airTemperatureExtraFeeRepository
-                .findATEFRateByTempAndVehicleId(windTemperature, vehicleId);
+                .findATEFRateByTempAndVehicleId(airTemperature, vehicleId);
 
         if (airTemperatureExtraFee == null){
 

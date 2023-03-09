@@ -8,7 +8,7 @@ import org.springframework.data.repository.query.Param;
 public interface WindSpeedExtraFeeRepository extends JpaRepository<WindSpeedExtraFee, Long> {
 
     @Query(value = "SELECT * FROM wind_speed_extra_fee " +
-            "WHERE lower_wind_speed <= :windSpeed AND :WindSpeed <= higher_wind_speed " +
+            "WHERE lower_wind_speed <= :windSpeed AND :windSpeed <= higher_wind_speed " +
             "AND vehicle_id = :vehicleId",nativeQuery = true)
     WindSpeedExtraFee findWSEFRateByTempAndVehicleId(@Param("windSpeed") Double windSpeed,
                                                      @Param("vehicleId") Long vehicleId);
