@@ -3,35 +3,31 @@ package app.services;
 import app.Dao.AirTemperatureExtraFeeRepository;
 import app.model.AirTemperatureExtraFee;
 import app.model.PriceModel;
-import app.model.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
     @Autowired
     private AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository;
-    public PriceModel calculateFee(PriceModel priceModel){
-        List<AirTemperatureExtraFee> atefList = airTemperatureExtraFeeRepository.findAll();
-        System.out.println(atefList);
 
-        var airTemp = priceModel.getWeather().getAirTemperature();
-        var vehicleType = priceModel.getVehicle().getId();
+    @Override
+    public PriceModel setFeeRate(PriceModel priceModel){
 
-        if (airTemp != null && vehicleType != null){
-            var atef = airTemperatureExtraFeeRepository.findATEFRateByTemp(airTemp, vehicleType);
-            priceModel.setAirTemperatureExtraFee(atef);
+        Double windTemperature = priceModel.getWeather().getWindSpeed();
+        Long vehicleId = priceModel.getVehicle().getId();
 
-            System.out.println("current" + airTemp + " - " +priceModel.getWeather());
-            System.out.println(atef);
+        AirTemperatureExtraFee airTemperatureExtraFee = airTemperatureExtraFeeRepository
+                .findATEFRateByTempAndVehicleId(windTemperature, vehicleId);
 
+        if (airTemperatureExtraFee == null){
+
+            airTemperatureExtraFee = new AirTemperatureExtraFee();
+            airTemperatureExtraFee.setAirTemperatureExtraFee(0.0);
         }
 
-
+        priceModel.setAirTemperatureExtraFee(airTemperatureExtraFee);
 
         return priceModel;
     }
-
 }

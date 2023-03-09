@@ -14,7 +14,7 @@ public class RBFCalculator extends AbstractFeeCalculator{
     private RegionalBaseFeeRepository rbfRepository;
 
     @Override
-    public PriceModel calculateFee(PriceModel priceModel){
+    public PriceModel setFeeRate(PriceModel priceModel){
         City city = priceModel.getCity();
         Vehicle vehicle = priceModel.getVehicle();
         RegionalBaseFee regionalBaseFee = GetRBF(city, vehicle);

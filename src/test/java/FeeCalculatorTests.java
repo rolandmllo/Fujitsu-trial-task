@@ -38,7 +38,7 @@ public class FeeCalculatorTests {
     priceModel.setVehicle(vehicle);
     priceModel.setCity(city);
 
-    Double rbf = rbfCalculator.CalculateRBF(priceModel).getRegionalBaseFee().getRegionalBaseFee();
+    Double rbf = rbfCalculator.setFeeRate(priceModel).getRegionalBaseFee().getRegionalBaseFee();
 
     assertThat(rbf).isEqualTo(2.5);
     }

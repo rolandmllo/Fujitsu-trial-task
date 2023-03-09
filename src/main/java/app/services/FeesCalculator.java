@@ -5,15 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FeesCalculator {
+public class FeesCalculator{
     @Autowired
-    private RBFCalculator rbfCalculator;
+    protected RBFCalculator rbfCalculator;
     @Autowired
-    private AirTemperatureExtraFeeCalculator atefCalculator;
+    protected AirTemperatureExtraFeeCalculator atefCalculator;
+    @Autowired
+    protected WindSpeedExtraFeeCalculator windSpeedExtraFeeCalculator;
+    @Autowired
+    protected WeatherPhenomenonExtraFeeCalculator weatherPhenomenonExtraFeeCalculator;
+
     public PriceModel calculateFees(PriceModel priceModel){
 
-        rbfCalculator.calculateFee(priceModel);
-        atefCalculator.calculateFee(priceModel);
+        rbfCalculator.setFeeRate(priceModel);
+        atefCalculator.setFeeRate(priceModel);
+        windSpeedExtraFeeCalculator.setFeeRate(priceModel);
+        weatherPhenomenonExtraFeeCalculator.setFeeRate(priceModel);
 
 
         System.out.println(priceModel);
@@ -26,7 +33,9 @@ public class FeesCalculator {
         Double total = 0.0;
 
         total = priceModel.getRegionalBaseFee().getRegionalBaseFee() +
-        priceModel.getAirTemperatureExtraFee().getAirTemperatureExtraFee();
+        priceModel.getAirTemperatureExtraFee().getAirTemperatureExtraFee() +
+        priceModel.getWindSpeedExtraFee().getWindSpeedExtraFee() +
+        priceModel.getWeatherPhenomenonExtraFee().getWeatherPhenomenonExtraFee();
 
         priceModel.setTotalPrice(total);
     }
