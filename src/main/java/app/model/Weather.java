@@ -17,20 +17,17 @@ import java.sql.Timestamp;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Weather extends BaseEntity{
 
-    private String name;
+    @XmlElement(name = "name")
+    private String observationStationName;
     private Integer wmocode;
 
     @XmlElement(name = "airtemperature")
-    //@Column(name = "airtemperature")
     private Double airTemperature;
     @XmlElement(name = "windspeed")
-    //@Column(name = "windspeed")
     private Double windSpeed;
 
-    //@Column(name = "phenomenon")
     private String phenomenon;
 
-    //@Column(name = "timestamp")
     private Timestamp timestamp;
 
 }

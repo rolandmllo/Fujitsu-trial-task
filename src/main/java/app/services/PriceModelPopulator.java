@@ -1,6 +1,8 @@
 package app.services;
 
+import app.Dao.WeatherRepository;
 import app.model.PriceModel;
+import app.model.Weather;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,8 @@ public class PriceModelPopulator {
     @Autowired
     private SearchService searchService;
     @Autowired
+    WeatherRepository weatherRepository;
+    @Autowired
     private FeesCalculator feesCalculator;
 
     private PriceModel priceModel;
@@ -18,11 +22,17 @@ public class PriceModelPopulator {
         priceModel = new PriceModel();
 
         searchService.ReadInputs(cityInput, vehicleInput, priceModel);
+        addLatestWeatherToPriceModel(priceModel);
+
         feesCalculator.calculateFees(priceModel);
 
-
-
-
         return priceModel;
+    }
+
+    private void addLatestWeatherToPriceModel(PriceModel priceModel) {
+        Weather weather = weatherRepository
+                .findFirstByObservationStationNameIsOrderByTimestampDesc
+                        (priceModel.getCity().getWeatherObservationStation());
+        priceModel.setWeather(weather);
     }
 }

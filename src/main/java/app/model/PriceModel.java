@@ -8,6 +8,7 @@ public class PriceModel {
     private Vehicle vehicle;
     private Weather weather;
     private RegionalBaseFee regionalBaseFee;
+    private AirTemperatureExtraFee airTemperatureExtraFee;
     private WindSpeedExtraFee windSpeedExtraFee;
     private WeatherPhenomenonExtraFee weatherPhenomenonExtraFee;
     private Boolean forbidden = false;

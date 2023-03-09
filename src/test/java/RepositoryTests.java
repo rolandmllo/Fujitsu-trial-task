@@ -28,7 +28,7 @@ public class RepositoryTests {
     @Test
     public void shouldAddWeatherToDatabase(){
         Weather weather = new Weather();
-        weather.setName("testWeather");
+        weather.setObservationStationName("testWeather");
 
         assertThat(weather.getId()).isNull();
         weatherRepository.save(weather);

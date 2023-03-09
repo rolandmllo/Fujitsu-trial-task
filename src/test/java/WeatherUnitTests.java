@@ -1,6 +1,6 @@
 import app.model.Weather;
 import org.junit.jupiter.api.Test;
-import app.services.WeatherService;
+import app.services.WeatherUpdateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = app.Application.class)
 public class WeatherUnitTests {
     @Autowired
-    WeatherService weatherService;
+    WeatherUpdateService weatherUpdateService;
 
 
     @Test
@@ -19,10 +19,10 @@ public class WeatherUnitTests {
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("observationData.xml");
 
-        var result = weatherService.parseXML(is);
+        var result = weatherUpdateService.parseXML(is);
 
         assertThat(result.getStations())
-                .extracting(Weather::getName)
+                .extracting(Weather::getObservationStationName)
                 .anyMatch(s -> s.matches("Tallinn-Harku"))
                 .anyMatch(s -> s.matches("Tartu-Tõravere"))
                 .anyMatch(s -> s.matches("Pärnu"));
@@ -33,10 +33,10 @@ public class WeatherUnitTests {
 
         String URL = "https://ilmateenistus.ee/ilma_andmed/xml/observations.php";
 
-        var result = weatherService.parseXMLFromUrl(URL);
+        var result = weatherUpdateService.parseXMLFromUrl(URL);
 
         assertThat(result.getStations())
-                .extracting(Weather::getName)
+                .extracting(Weather::getObservationStationName)
                 .anyMatch(s -> s.matches("Tallinn-Harku"))
                 .anyMatch(s -> s.matches("Tartu-Tõravere"))
                 .anyMatch(s -> s.matches("Pärnu"));
@@ -46,7 +46,7 @@ public class WeatherUnitTests {
     @Test
     public void shouldAddWeatherDataToDatabase(){
         Weather weather = new Weather();
-        weather.setName("testest");
+        weather.setObservationStationName("testest");
 
     }
 

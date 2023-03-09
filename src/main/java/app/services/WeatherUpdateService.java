@@ -19,22 +19,33 @@ import java.net.URL;
 import java.util.List;
 
 @Service
-public class WeatherService {
+public class WeatherUpdateService {
     private static final String WEATHER_API_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
     @Autowired
     private WeatherRepository weatherRepository;
     @Autowired
     private CityRepository cityRepository;
 
-    //@EventListener(ApplicationReadyEvent.class)
+    @EventListener(ApplicationReadyEvent.class)
     private void onStartup() {
-        updateWeatherData();
+        updateWeatherDataFromFile(); // For testing
+        // updateWeatherData();
     }
 
     @Scheduled(cron="0 15 0 * * ?")
     private void onSchedule() {
         updateWeatherData();
     }
+
+    private void updateWeatherDataFromFile(){
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream("observationData.xml");
+
+        Observation observationData = parseXML(is);
+        persistRelatedWeatherData(observationData);
+        System.out.println("Weather updated");
+    }
+
 
     private void updateWeatherData(){
         Observation observationData = parseXMLFromUrl(WEATHER_API_URL);
@@ -46,7 +57,7 @@ public class WeatherService {
 
         for (Weather station : observationData.getStations()) {
             for (City city : cityList) {
-                if (station.getName().equals(city.getWeatherObservationStation())){
+                if (station.getObservationStationName().equals(city.getWeatherObservationStation())){
                     station.setTimestamp(observationData.getTimestamp());
                     weatherRepository.save(station);
                 }

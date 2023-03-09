@@ -1,4 +1,4 @@
-package app.controller;
+package app.api.controller;
 
 import app.Dao.CityRepository;
 import app.Dao.WeatherRepository;
