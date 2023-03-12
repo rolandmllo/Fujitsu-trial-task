@@ -17,7 +17,7 @@ public class WeatherPhenomenonExtraFee extends BaseEntity {
 
     private Boolean forbidden = false;
 
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 }
