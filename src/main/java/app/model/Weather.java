@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -28,6 +29,6 @@ public class Weather extends BaseEntity{
 
     private String phenomenon;
 
-    private Timestamp timestamp;
+    private LocalDateTime timestamp;
 
 }

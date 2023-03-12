@@ -5,6 +5,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lombok.Data;
 import app.services.helper.TimestampXMLAdapter;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -12,8 +13,8 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Observation {
     @XmlAttribute
-    @XmlJavaTypeAdapter(type = String.class, value = TimestampXMLAdapter.class)
-    private Timestamp timestamp;
+    @XmlJavaTypeAdapter(TimestampXMLAdapter.class)
+    private LocalDateTime timestamp;
 
     @XmlElement(name = "station")
     private List<Weather> stations;

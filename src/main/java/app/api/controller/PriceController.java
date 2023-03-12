@@ -7,11 +7,14 @@ import app.model.PriceModel;
 import app.model.Weather;
 import app.services.PriceModelPopulator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,18 +28,17 @@ public class PriceController {
     @Autowired
     private CityRepository cityRepository;
 
-    @GetMapping("api/price/{city}&{vehicle}")
-    public Double getDeliveryFee(@PathVariable String city, @PathVariable String vehicle) {
 
-        PriceModel priceModel = priceModelPopulator.Populate(city, vehicle);
+    @GetMapping("api/price")
+    public Double getDeliveryFee(@RequestParam String city,
+                                 @RequestParam String vehicle,
+                                 @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime datetime) {
 
-        return priceModel.getTotalPrice();
-    }
-
-    @GetMapping("api/price/{city}&{vehicle}&{datetime}")
-    public Double getDeliveryFee(@PathVariable String city, @PathVariable String vehicle, Timestamp timestamp) {
-
-        PriceModel priceModel = priceModelPopulator.Populate(city, vehicle);
+        System.out.println(city);
+        System.out.println(vehicle);
+        System.out.println(datetime);
+        System.out.println();
+        PriceModel priceModel = priceModelPopulator.Populate(city, vehicle, datetime);
 
         return priceModel.getTotalPrice();
     }

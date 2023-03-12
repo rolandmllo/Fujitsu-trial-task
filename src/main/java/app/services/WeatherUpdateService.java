@@ -40,7 +40,6 @@ public class WeatherUpdateService {
     private void updateWeatherDataFromFile(){
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         InputStream is = classloader.getResourceAsStream("observationData.xml");
-
         Observation observationData = parseXML(is);
         persistRelatedWeatherData(observationData);
         System.out.println("Weather updated");
@@ -82,7 +81,8 @@ public class WeatherUpdateService {
 
         try {
             JAXBContext context = JAXBContext.newInstance(Observation.class);
-            observations = (Observation) context.createUnmarshaller()
+            observations = (Observation) context
+                    .createUnmarshaller()
                     .unmarshal(xmlInput);
 
         } catch (JAXBException e) {
