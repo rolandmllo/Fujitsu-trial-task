@@ -12,7 +12,7 @@ public class WindSpeedExtraFeeCalculator extends AbstractFeeCalculator{
     @Autowired
     private WindSpeedExtraFeeRepository windSpeedExtraFeeRepository;
     @Override
-    public PriceModel setFeeRate(PriceModel priceModel) {
+    public PriceModel applyFeeRate(PriceModel priceModel) {
 
         Double windSpeed = priceModel.getWeather().getWindSpeed();
         Long vehicleId = priceModel.getVehicle().getId();

@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RBFCalculator extends AbstractFeeCalculator{
+public class RegionalBaseFeeCalculator extends AbstractFeeCalculator{
     @Autowired
     private RegionalBaseFeeRepository rbfRepository;
 
     @Override
-    public PriceModel setFeeRate(PriceModel priceModel){
+    public PriceModel applyFeeRate(PriceModel priceModel){
         City city = priceModel.getCity();
         Vehicle vehicle = priceModel.getVehicle();
         RegionalBaseFee regionalBaseFee = GetRBF(city, vehicle);

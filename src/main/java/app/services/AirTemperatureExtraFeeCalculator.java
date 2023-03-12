@@ -12,7 +12,7 @@ public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
     private AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository;
 
     @Override
-    public PriceModel setFeeRate(PriceModel priceModel){
+    public PriceModel applyFeeRate(PriceModel priceModel){
 
         Double airTemperature = priceModel.getWeather().getAirTemperature();
         Long vehicleId = priceModel.getVehicle().getId();

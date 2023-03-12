@@ -11,7 +11,7 @@ public class WeatherPhenomenonExtraFeeCalculator extends AbstractFeeCalculator{
     @Autowired
     private WeatherPhenomenonExtraFeeRepository weatherPhenomenonExtraFeeRepository;
     @Override
-    public PriceModel setFeeRate(PriceModel priceModel) {
+    public PriceModel applyFeeRate(PriceModel priceModel) {
 
         String phenomenon = priceModel.getWeather().getPhenomenon();
         Long vehicleId = priceModel.getVehicle().getId();

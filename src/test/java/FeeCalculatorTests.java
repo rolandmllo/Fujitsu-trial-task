@@ -3,7 +3,7 @@ import app.Dao.VehicleRepository;
 import app.model.City;
 import app.model.PriceModel;
 import app.model.Vehicle;
-import app.services.RBFCalculator;
+import app.services.RegionalBaseFeeCalculator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ public class FeeCalculatorTests {
     VehicleRepository vehicleRepository;
 
     @Autowired
-    RBFCalculator rbfCalculator;
+    RegionalBaseFeeCalculator regionalBaseFeeCalculator;
 
     @Test
     void contextLoads() {
@@ -38,7 +38,7 @@ public class FeeCalculatorTests {
     priceModel.setVehicle(vehicle);
     priceModel.setCity(city);
 
-    Double rbf = rbfCalculator.setFeeRate(priceModel).getRegionalBaseFee().getRegionalBaseFee();
+    Double rbf = regionalBaseFeeCalculator.applyFeeRate(priceModel).getRegionalBaseFee().getRegionalBaseFee();
 
     assertThat(rbf).isEqualTo(2.5);
     }

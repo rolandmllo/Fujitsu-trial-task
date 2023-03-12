@@ -14,7 +14,7 @@ public class PriceModelPopulator {
     @Autowired
     WeatherRepository weatherRepository;
     @Autowired
-    private FeesCalculator feesCalculator;
+    private DeliveryFeeCalculator deliveryFeeCalculator;
 
     private PriceModel priceModel;
 
@@ -24,7 +24,7 @@ public class PriceModelPopulator {
         searchService.ReadInputs(cityInput, vehicleInput, priceModel);
         addLatestWeatherToPriceModel(priceModel);
 
-        feesCalculator.calculateFees(priceModel);
+        deliveryFeeCalculator.calculateFees(priceModel);
 
         return priceModel;
     }

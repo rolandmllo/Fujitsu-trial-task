@@ -7,6 +7,7 @@ import app.model.PriceModel;
 import app.model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 @Service
 public class SearchService {
@@ -20,9 +21,10 @@ public class SearchService {
 
     public PriceModel ReadInputs(String cityInput, String vehicleInput, PriceModel priceModel){
 
-        // TODO: search validation
-        City city = GetCity(cityInput.replace("city=", "").trim());
-        Vehicle vehicle = GetVehicle(vehicleInput.replace("vehicle=", "").trim());
+        City city = GetCity(cityInput
+                .replace("city=", "").trim());
+        Vehicle vehicle = GetVehicle(vehicleInput.
+                replace("vehicle=", "").trim());
 
         priceModel.setCity(city);
         priceModel.setVehicle(vehicle);
@@ -30,12 +32,19 @@ public class SearchService {
         return priceModel;
     }
 
-    private Vehicle GetVehicle(String vehicle) {
-        return vehicleRepository.findByVehicleType(vehicle);
+    private Vehicle GetVehicle(String vehicleType) {
+        Vehicle vehicle = vehicleRepository.findByVehicleType(vehicleType);
+
+        if (vehicle != null) return vehicle;
+
+        throw new IllegalArgumentException("Invalid vehicle type: " + vehicleType);
     }
 
-    private City GetCity(String city){
-        return cityRepository.findByCityName(city);
+    private City GetCity(String cityName){
+        City city = cityRepository.findByCityName(cityName);
+        if(city != null) return city;
+
+        throw new IllegalArgumentException("Invalid city: " + cityName);
     }
 
 }

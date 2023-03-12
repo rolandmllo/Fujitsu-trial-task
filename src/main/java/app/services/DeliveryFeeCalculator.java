@@ -5,11 +5,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FeesCalculator{
+public class DeliveryFeeCalculator {
     @Autowired
-    protected RBFCalculator rbfCalculator;
+    protected RegionalBaseFeeCalculator regionalBaseFeeCalculator;
     @Autowired
-    protected AirTemperatureExtraFeeCalculator atefCalculator;
+    protected AirTemperatureExtraFeeCalculator airTemperatureExtraFeeCalculator;
     @Autowired
     protected WindSpeedExtraFeeCalculator windSpeedExtraFeeCalculator;
     @Autowired
@@ -17,10 +17,10 @@ public class FeesCalculator{
 
     public PriceModel calculateFees(PriceModel priceModel){
 
-        rbfCalculator.setFeeRate(priceModel);
-        atefCalculator.setFeeRate(priceModel);
-        windSpeedExtraFeeCalculator.setFeeRate(priceModel);
-        weatherPhenomenonExtraFeeCalculator.setFeeRate(priceModel);
+        regionalBaseFeeCalculator.applyFeeRate(priceModel);
+        airTemperatureExtraFeeCalculator.applyFeeRate(priceModel);
+        windSpeedExtraFeeCalculator.applyFeeRate(priceModel);
+        weatherPhenomenonExtraFeeCalculator.applyFeeRate(priceModel);
 
 
         System.out.println(priceModel);

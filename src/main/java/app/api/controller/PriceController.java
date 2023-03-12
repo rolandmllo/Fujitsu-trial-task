@@ -5,13 +5,13 @@ import app.Dao.WeatherRepository;
 import app.model.City;
 import app.model.PriceModel;
 import app.model.Weather;
-import app.services.FeesCalculator;
 import app.services.PriceModelPopulator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -26,12 +26,23 @@ public class PriceController {
     private CityRepository cityRepository;
 
     @GetMapping("api/price/{city}&{vehicle}")
-    public Double getItem(@PathVariable String city, @PathVariable String vehicle) {
+    public Double getDeliveryFee(@PathVariable String city, @PathVariable String vehicle) {
 
         PriceModel priceModel = priceModelPopulator.Populate(city, vehicle);
 
         return priceModel.getTotalPrice();
     }
+
+    @GetMapping("api/price/{city}&{vehicle}&{datetime}")
+    public Double getDeliveryFee(@PathVariable String city, @PathVariable String vehicle, Timestamp timestamp) {
+
+        PriceModel priceModel = priceModelPopulator.Populate(city, vehicle);
+
+        return priceModel.getTotalPrice();
+    }
+
+
+
 
     @GetMapping("api/weather")
     public List<Weather> getWeatherData(){
