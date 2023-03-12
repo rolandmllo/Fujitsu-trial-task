@@ -11,23 +11,34 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 
+/**
+ * The type Weather update service from URL and with CRONJOB support.
+ */
 @Service
 public class weatherUpdateService {
     private static final String WEATHER_API_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
     private final WeatherRepository weatherRepository;
     private final CityRepository cityRepository;
 
+    /**
+     * Instantiates a new Weather update service.
+     *
+     * @param weatherRepository the weather repository
+     * @param cityRepository    the city repository
+     */
     public weatherUpdateService(WeatherRepository weatherRepository, CityRepository cityRepository) {
         this.weatherRepository = weatherRepository;
         this.cityRepository = cityRepository;
     }
 
+    /**
+     * On startup loads weather data from API.
+     */
     @EventListener(ApplicationReadyEvent.class)
     public void onStartup() {
         updateWeatherDataFromFile(); // For testing
@@ -67,6 +78,12 @@ public class weatherUpdateService {
     }
 
 
+    /**
+     * Parse xml from url to Observation model.
+     *
+     * @param inputUrl the input url
+     * @return the observation
+     */
     public Observation parseXMLFromUrl(String inputUrl) {
 
         try (InputStream input = new URL(inputUrl).openStream()){
@@ -77,6 +94,12 @@ public class weatherUpdateService {
     }
 
 
+    /**
+     * Parse xml to observation from InputStream.
+     *
+     * @param xmlInput the xml input
+     * @return the observation
+     */
     public Observation parseXML(InputStream xmlInput) {
 
         Observation observations;

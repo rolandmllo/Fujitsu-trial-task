@@ -12,17 +12,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Atef controller.
+ */
 @RestController
 @RequestMapping("/api")
 @Validated
 public class ATEFController {
+    /**
+     * The Atef repository.
+     */
     final
     AirTemperatureExtraFeeRepository atefRepository;
 
+    /**
+     * Instantiates a new Atef controller.
+     *
+     * @param atefRepository the atef repository
+     */
     public ATEFController(AirTemperatureExtraFeeRepository atefRepository) {
         this.atefRepository = atefRepository;
     }
 
+    /**
+     * Gets atef.
+     *
+     * @param id the id
+     * @return the atef
+     */
     @GetMapping("/ATEF")
     public ResponseEntity<List<AirTemperatureExtraFee>> getATEF(@RequestParam(required = false) String id) {
         try {
@@ -44,6 +61,12 @@ public class ATEFController {
     }
 
 
+    /**
+     * Create atef response entity.
+     *
+     * @param atef the atef
+     * @return the response entity
+     */
     @PostMapping("/ATEF")
     public ResponseEntity<AirTemperatureExtraFee> createATEF (@Valid @RequestBody AirTemperatureExtraFee atef) {
         try {
@@ -56,6 +79,13 @@ public class ATEFController {
         }
     }
 
+    /**
+     * Update atef response entity.
+     *
+     * @param id   the id
+     * @param atef the atef
+     * @return the response entity
+     */
     @PutMapping("/ATEF/{id}")
     public ResponseEntity<AirTemperatureExtraFee> updateATEF(@PathVariable("id") long id,
                                                                  @RequestBody AirTemperatureExtraFee atef) {
@@ -68,6 +98,12 @@ public class ATEFController {
         }
     }
 
+    /**
+     * Delete atef response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @DeleteMapping("/ATEF/{id}")
     public ResponseEntity<HttpStatus> deleteATEF(@PathVariable("id") long id) {
         try {

@@ -7,10 +7,18 @@ import app.model.Vehicle;
 import app.model.PriceModel;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Regional base fee calculator.
+ */
 @Service
 public class RegionalBaseFeeCalculator extends AbstractFeeCalculator{
     private final RegionalBaseFeeRepository rbfRepository;
 
+    /**
+     * Instantiates a new Regional base fee calculator.
+     *
+     * @param rbfRepository the rbf repository
+     */
     public RegionalBaseFeeCalculator(RegionalBaseFeeRepository rbfRepository) {
         this.rbfRepository = rbfRepository;
     }

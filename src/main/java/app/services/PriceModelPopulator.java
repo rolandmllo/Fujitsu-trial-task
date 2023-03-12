@@ -10,11 +10,14 @@ import app.model.Weather;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
+/**
+ * The type Price model populator.
+ * Populate price model with city, vehicle and waether data before fees calculation.
+ */
 @Service
 public class PriceModelPopulator {
 
-    final
-    WeatherRepository weatherRepository;
+    private WeatherRepository weatherRepository;
 
     private final CityRepository cityRepository;
 
@@ -24,6 +27,14 @@ public class PriceModelPopulator {
 
     private PriceModel priceModel;
 
+    /**
+     * Instantiates a new Price model populator.
+     *
+     * @param weatherRepository     the weather repository
+     * @param cityRepository        the city repository
+     * @param vehicleRepository     the vehicle repository
+     * @param deliveryFeeCalculator the delivery fee calculator
+     */
     public PriceModelPopulator(WeatherRepository weatherRepository, CityRepository cityRepository, VehicleRepository vehicleRepository, DeliveryFeeCalculator deliveryFeeCalculator) {
         this.weatherRepository = weatherRepository;
         this.cityRepository = cityRepository;
@@ -31,6 +42,14 @@ public class PriceModelPopulator {
         this.deliveryFeeCalculator = deliveryFeeCalculator;
     }
 
+    /**
+     * Populate price model.
+     *
+     * @param cityInput       the city from input as string
+     * @param vehicleInput    the vehicle from input as string
+     * @param weatherDateTime the weather date time from input as LocalDateTime
+     * @return the price model
+     */
     public PriceModel populate(String cityInput, String vehicleInput, LocalDateTime weatherDateTime) {
         priceModel = new PriceModel();
 
@@ -41,7 +60,7 @@ public class PriceModelPopulator {
 
     }
 
-    public void setInputs(String cityInput, String vehicleInput, LocalDateTime weatherDateTime){
+    private void setInputs(String cityInput, String vehicleInput, LocalDateTime weatherDateTime){
 
         City city = getCity(cityInput.trim());
         Vehicle vehicle = getVehicle(vehicleInput.trim());

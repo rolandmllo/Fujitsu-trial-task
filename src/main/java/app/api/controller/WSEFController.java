@@ -11,17 +11,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The type Wsef controller.
+ */
 @RestController
 @RequestMapping("/api")
 @Validated
 public class WSEFController {
+    /**
+     * The Wsef repository.
+     */
     final
     WindSpeedExtraFeeRepository wsefRepository;
 
+    /**
+     * Instantiates a new Wsef controller.
+     *
+     * @param wsefRepository the wsef repository
+     */
     public WSEFController(WindSpeedExtraFeeRepository wsefRepository) {
         this.wsefRepository = wsefRepository;
     }
 
+    /**
+     * Gets wsef.
+     *
+     * @param id the id
+     * @return the wsef
+     */
     @GetMapping("/WSEF")
     public ResponseEntity<List<WindSpeedExtraFee>> getWSEF(@RequestParam(required = false) String id) {
         try {
@@ -43,6 +60,12 @@ public class WSEFController {
     }
 
 
+    /**
+     * Create wsef response entity.
+     *
+     * @param wsef the wsef
+     * @return the response entity
+     */
     @PostMapping("/WSEF")
     public ResponseEntity<WindSpeedExtraFee> createWSEF (@RequestBody WindSpeedExtraFee wsef) {
         try {
@@ -55,6 +78,13 @@ public class WSEFController {
         }
     }
 
+    /**
+     * Update wsef response entity.
+     *
+     * @param id   the id
+     * @param wsef the wsef
+     * @return the response entity
+     */
     @PutMapping("/WSEF/{id}")
     public ResponseEntity<WindSpeedExtraFee> updateWSEF(@PathVariable("id") long id,
                                                              @RequestBody WindSpeedExtraFee wsef) {
@@ -67,6 +97,12 @@ public class WSEFController {
         }
     }
 
+    /**
+     * Delete wsef response entity.
+     *
+     * @param id the id
+     * @return the response entity
+     */
     @DeleteMapping("/WSEF/{id}")
     public ResponseEntity<HttpStatus> deleteWSEF(@PathVariable("id") long id) {
         try {

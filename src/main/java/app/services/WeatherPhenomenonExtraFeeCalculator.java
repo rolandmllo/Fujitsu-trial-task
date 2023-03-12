@@ -5,10 +5,18 @@ import app.model.PriceModel;
 import app.model.WeatherPhenomenonExtraFee;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Weather phenomenon extra fee calculator.
+ */
 @Service
 public class WeatherPhenomenonExtraFeeCalculator extends AbstractFeeCalculator{
     private final WeatherPhenomenonExtraFeeRepository weatherPhenomenonExtraFeeRepository;
 
+    /**
+     * Instantiates a new Weather phenomenon extra fee calculator.
+     *
+     * @param weatherPhenomenonExtraFeeRepository the weather phenomenon extra fee repository
+     */
     public WeatherPhenomenonExtraFeeCalculator(WeatherPhenomenonExtraFeeRepository weatherPhenomenonExtraFeeRepository) {
         this.weatherPhenomenonExtraFeeRepository = weatherPhenomenonExtraFeeRepository;
     }

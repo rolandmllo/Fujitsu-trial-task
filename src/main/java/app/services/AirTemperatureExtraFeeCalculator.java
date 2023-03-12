@@ -5,10 +5,18 @@ import app.model.AirTemperatureExtraFee;
 import app.model.PriceModel;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Air temperature extra fee calculator.
+ */
 @Service
 public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
     private final AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository;
 
+    /**
+     * Instantiates a new Air temperature extra fee calculator.
+     *
+     * @param airTemperatureExtraFeeRepository the air temperature extra fee repository
+     */
     public AirTemperatureExtraFeeCalculator(AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository) {
         this.airTemperatureExtraFeeRepository = airTemperatureExtraFeeRepository;
     }

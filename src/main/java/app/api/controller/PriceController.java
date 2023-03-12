@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+/**
+ * The Price controller.
+ */
 @RestController
 public class PriceController {
 
@@ -21,6 +25,13 @@ public class PriceController {
 
     private final CityRepository cityRepository;
 
+    /**
+     * Instantiates a new Price controller.
+     *
+     * @param priceModelPopulator the price model populator
+     * @param weatherRepository   the weather repository
+     * @param cityRepository      the city repository
+     */
     public PriceController(PriceModelPopulator priceModelPopulator, WeatherRepository weatherRepository, CityRepository cityRepository) {
         this.priceModelPopulator = priceModelPopulator;
         this.weatherRepository = weatherRepository;
@@ -28,6 +39,14 @@ public class PriceController {
     }
 
 
+    /**
+     * Gets delivery fee.
+     *
+     * @param city     the city name
+     * @param vehicle  the vehicle type
+     * @param datetime the datetime - optional datetime for weather data on specific date.
+     * @return the delivery fee
+     */
     @GetMapping("api/price")
     public Double getDeliveryFee(@RequestParam String city,
                                  @RequestParam String vehicle,
@@ -43,8 +62,11 @@ public class PriceController {
     }
 
 
-
-
+    /**
+     * Get weather data list.
+     *
+     * @return the list
+     */
     @GetMapping("api/weather")
     public List<Weather> getWeatherData(){
         var weather =  weatherRepository.findAll();
@@ -52,6 +74,11 @@ public class PriceController {
         return weather;
     }
 
+    /**
+     * Get city data list.
+     *
+     * @return the list
+     */
     @GetMapping("api/cities")
     public List<City> getCityData(){
         var city =  cityRepository.findAll();
