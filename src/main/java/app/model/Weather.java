@@ -8,7 +8,6 @@ import jakarta.xml.bind.annotation.XmlElement;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 

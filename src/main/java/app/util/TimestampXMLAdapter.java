@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 public class TimestampXMLAdapter extends XmlAdapter<String, LocalDateTime> {
-    private DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
         public String marshal(LocalDateTime dateTime) {

@@ -6,7 +6,6 @@ import app.model.City;
 import app.model.PriceModel;
 import app.model.Weather;
 import app.services.PriceModelPopulator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,13 +16,16 @@ import java.util.List;
 @RestController
 public class PriceController {
 
-    @Autowired
-    private PriceModelPopulator priceModelPopulator;
-    @Autowired
-    private WeatherRepository weatherRepository;
+    private final PriceModelPopulator priceModelPopulator;
+    private final WeatherRepository weatherRepository;
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
+
+    public PriceController(PriceModelPopulator priceModelPopulator, WeatherRepository weatherRepository, CityRepository cityRepository) {
+        this.priceModelPopulator = priceModelPopulator;
+        this.weatherRepository = weatherRepository;
+        this.cityRepository = cityRepository;
+    }
 
 
     @GetMapping("api/price")
@@ -35,7 +37,7 @@ public class PriceController {
         System.out.println(vehicle);
         System.out.println(datetime);
         System.out.println();
-        PriceModel priceModel = priceModelPopulator.Populate(city, vehicle, datetime);
+        PriceModel priceModel = priceModelPopulator.populate(city, vehicle, datetime);
 
         return priceModel.getTotalPrice();
     }

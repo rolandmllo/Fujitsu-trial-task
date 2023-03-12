@@ -1,36 +1,34 @@
 package app.services;
 
 import app.model.PriceModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DeliveryFeeCalculator {
-    @Autowired
-    protected RegionalBaseFeeCalculator regionalBaseFeeCalculator;
-    @Autowired
-    protected AirTemperatureExtraFeeCalculator airTemperatureExtraFeeCalculator;
-    @Autowired
-    protected WindSpeedExtraFeeCalculator windSpeedExtraFeeCalculator;
-    @Autowired
-    protected WeatherPhenomenonExtraFeeCalculator weatherPhenomenonExtraFeeCalculator;
+    protected final RegionalBaseFeeCalculator regionalBaseFeeCalculator;
+    protected final AirTemperatureExtraFeeCalculator airTemperatureExtraFeeCalculator;
+    protected final WindSpeedExtraFeeCalculator windSpeedExtraFeeCalculator;
+    protected final WeatherPhenomenonExtraFeeCalculator weatherPhenomenonExtraFeeCalculator;
 
-    public PriceModel calculateFees(PriceModel priceModel){
+    public DeliveryFeeCalculator(RegionalBaseFeeCalculator regionalBaseFeeCalculator, AirTemperatureExtraFeeCalculator airTemperatureExtraFeeCalculator, WindSpeedExtraFeeCalculator windSpeedExtraFeeCalculator, WeatherPhenomenonExtraFeeCalculator weatherPhenomenonExtraFeeCalculator) {
+        this.regionalBaseFeeCalculator = regionalBaseFeeCalculator;
+        this.airTemperatureExtraFeeCalculator = airTemperatureExtraFeeCalculator;
+        this.windSpeedExtraFeeCalculator = windSpeedExtraFeeCalculator;
+        this.weatherPhenomenonExtraFeeCalculator = weatherPhenomenonExtraFeeCalculator;
+    }
+
+    public void calculateFees(PriceModel priceModel){
 
         regionalBaseFeeCalculator.applyFeeRate(priceModel);
         airTemperatureExtraFeeCalculator.applyFeeRate(priceModel);
         windSpeedExtraFeeCalculator.applyFeeRate(priceModel);
         weatherPhenomenonExtraFeeCalculator.applyFeeRate(priceModel);
 
-
-        System.out.println(priceModel);
-
         calculatePriceModelTotal(priceModel);
-        return priceModel;
     }
 
     private void calculatePriceModelTotal(PriceModel priceModel){
-        Double total = 0.0;
+        double total;
 
         total = priceModel.getRegionalBaseFee().getRegionalBaseFee() +
         priceModel.getAirTemperatureExtraFee().getAirTemperatureExtraFee() +

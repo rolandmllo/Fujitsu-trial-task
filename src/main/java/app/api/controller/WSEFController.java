@@ -2,7 +2,6 @@ package app.api.controller;
 
 import app.Dao.WindSpeedExtraFeeRepository;
 import app.model.WindSpeedExtraFee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,8 +15,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 @Validated
 public class WSEFController {
-    @Autowired
+    final
     WindSpeedExtraFeeRepository wsefRepository;
+
+    public WSEFController(WindSpeedExtraFeeRepository wsefRepository) {
+        this.wsefRepository = wsefRepository;
+    }
 
     @GetMapping("/WSEF")
     public ResponseEntity<List<WindSpeedExtraFee>> getWSEF(@RequestParam(required = false) String id) {

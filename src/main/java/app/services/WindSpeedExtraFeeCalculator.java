@@ -3,13 +3,16 @@ package app.services;
 import app.Dao.WindSpeedExtraFeeRepository;
 import app.model.PriceModel;
 import app.model.WindSpeedExtraFee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WindSpeedExtraFeeCalculator extends AbstractFeeCalculator{
-    @Autowired
-    private WindSpeedExtraFeeRepository windSpeedExtraFeeRepository;
+    private final WindSpeedExtraFeeRepository windSpeedExtraFeeRepository;
+
+    public WindSpeedExtraFeeCalculator(WindSpeedExtraFeeRepository windSpeedExtraFeeRepository) {
+        this.windSpeedExtraFeeRepository = windSpeedExtraFeeRepository;
+    }
+
     @Override
     public PriceModel applyFeeRate(PriceModel priceModel) {
 
@@ -19,15 +22,16 @@ public class WindSpeedExtraFeeCalculator extends AbstractFeeCalculator{
         WindSpeedExtraFee windSpeedExtraFee = windSpeedExtraFeeRepository
                 .findWSEFRateByTempAndVehicleId(windSpeed, vehicleId);
 
+        if (windSpeedExtraFee == null){
+            windSpeedExtraFee = new WindSpeedExtraFee();
+            windSpeedExtraFee.setWindSpeedExtraFee(0.0);
+        }
+
         if (windSpeedExtraFee.getForbidden()){
             throw new IllegalArgumentException("“Usage of\n" +
                     "selected vehicle type is forbidden”");
         }
 
-        if (windSpeedExtraFee == null){
-            windSpeedExtraFee = new WindSpeedExtraFee();
-            windSpeedExtraFee.setWindSpeedExtraFee(0.0);
-        }
 
         priceModel.setWindSpeedExtraFee(windSpeedExtraFee);
 

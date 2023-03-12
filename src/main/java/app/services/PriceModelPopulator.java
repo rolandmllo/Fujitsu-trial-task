@@ -7,28 +7,31 @@ import app.model.City;
 import app.model.PriceModel;
 import app.model.Vehicle;
 import app.model.Weather;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
 public class PriceModelPopulator {
 
-    @Autowired
+    final
     WeatherRepository weatherRepository;
 
-    @Autowired
-    private CityRepository cityRepository;
+    private final CityRepository cityRepository;
 
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    private final VehicleRepository vehicleRepository;
 
-    @Autowired
-    private DeliveryFeeCalculator deliveryFeeCalculator;
+    private final DeliveryFeeCalculator deliveryFeeCalculator;
 
     private PriceModel priceModel;
 
-    public PriceModel Populate(String cityInput, String vehicleInput, LocalDateTime weatherDateTime) {
+    public PriceModelPopulator(WeatherRepository weatherRepository, CityRepository cityRepository, VehicleRepository vehicleRepository, DeliveryFeeCalculator deliveryFeeCalculator) {
+        this.weatherRepository = weatherRepository;
+        this.cityRepository = cityRepository;
+        this.vehicleRepository = vehicleRepository;
+        this.deliveryFeeCalculator = deliveryFeeCalculator;
+    }
+
+    public PriceModel populate(String cityInput, String vehicleInput, LocalDateTime weatherDateTime) {
         priceModel = new PriceModel();
 
         setInputs(cityInput, vehicleInput, weatherDateTime);
@@ -40,8 +43,8 @@ public class PriceModelPopulator {
 
     public void setInputs(String cityInput, String vehicleInput, LocalDateTime weatherDateTime){
 
-        City city = GetCity(cityInput.trim());
-        Vehicle vehicle = GetVehicle(vehicleInput.trim());
+        City city = getCity(cityInput.trim());
+        Vehicle vehicle = getVehicle(vehicleInput.trim());
 
         priceModel.setCity(city);
         priceModel.setVehicle(vehicle);
@@ -58,7 +61,7 @@ public class PriceModelPopulator {
         }
 
     }
-    private Vehicle GetVehicle(String vehicleType) {
+    private Vehicle getVehicle(String vehicleType) {
         Vehicle vehicle = vehicleRepository.findByVehicleType(vehicleType);
 
         if (vehicle != null) return vehicle;
@@ -66,7 +69,7 @@ public class PriceModelPopulator {
         throw new IllegalArgumentException("Invalid vehicle type: " + vehicleType);
     }
 
-    private City GetCity(String cityName){
+    private City getCity(String cityName){
         City city = cityRepository.findByCityName(cityName);
         if(city != null) return city;
 

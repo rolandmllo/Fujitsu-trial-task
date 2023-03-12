@@ -3,7 +3,6 @@ package app.api.controller;
 import app.Dao.AirTemperatureExtraFeeRepository;
 import app.model.AirTemperatureExtraFee;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,8 +16,12 @@ import java.util.Optional;
 @RequestMapping("/api")
 @Validated
 public class ATEFController {
-    @Autowired
+    final
     AirTemperatureExtraFeeRepository atefRepository;
+
+    public ATEFController(AirTemperatureExtraFeeRepository atefRepository) {
+        this.atefRepository = atefRepository;
+    }
 
     @GetMapping("/ATEF")
     public ResponseEntity<List<AirTemperatureExtraFee>> getATEF(@RequestParam(required = false) String id) {

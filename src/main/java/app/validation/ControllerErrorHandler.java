@@ -34,16 +34,8 @@ public class ControllerErrorHandler {
     public ValidationErrors handleInputError(
             IllegalArgumentException exception) {
 
-        //List<FieldError> errors = exception.getBindingResult().getFieldErrors();
-
-        System.out.println(exception);
-
         app.validation.ValidationErrors result = new app.validation.ValidationErrors();
         result.addErrorMessage(exception.getMessage());
-
-//        for (FieldError error : errors) {
-//            result.addFieldError(error);
-//        }
 
         return result;
     }

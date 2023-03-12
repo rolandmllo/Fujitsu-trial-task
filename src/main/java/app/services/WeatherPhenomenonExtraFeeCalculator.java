@@ -3,13 +3,16 @@ package app.services;
 import app.Dao.WeatherPhenomenonExtraFeeRepository;
 import app.model.PriceModel;
 import app.model.WeatherPhenomenonExtraFee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class WeatherPhenomenonExtraFeeCalculator extends AbstractFeeCalculator{
-    @Autowired
-    private WeatherPhenomenonExtraFeeRepository weatherPhenomenonExtraFeeRepository;
+    private final WeatherPhenomenonExtraFeeRepository weatherPhenomenonExtraFeeRepository;
+
+    public WeatherPhenomenonExtraFeeCalculator(WeatherPhenomenonExtraFeeRepository weatherPhenomenonExtraFeeRepository) {
+        this.weatherPhenomenonExtraFeeRepository = weatherPhenomenonExtraFeeRepository;
+    }
+
     @Override
     public PriceModel applyFeeRate(PriceModel priceModel) {
 

@@ -3,13 +3,15 @@ package app.services;
 import app.Dao.AirTemperatureExtraFeeRepository;
 import app.model.AirTemperatureExtraFee;
 import app.model.PriceModel;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
-    @Autowired
-    private AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository;
+    private final AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository;
+
+    public AirTemperatureExtraFeeCalculator(AirTemperatureExtraFeeRepository airTemperatureExtraFeeRepository) {
+        this.airTemperatureExtraFeeRepository = airTemperatureExtraFeeRepository;
+    }
 
     @Override
     public PriceModel applyFeeRate(PriceModel priceModel){
@@ -20,15 +22,15 @@ public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
         AirTemperatureExtraFee airTemperatureExtraFee = airTemperatureExtraFeeRepository
                 .findATEFRateByTempAndVehicleId(airTemperature, vehicleId);
 
-        if (airTemperatureExtraFee.getForbidden()){
-            throw new IllegalArgumentException("“Usage of\n" +
-                    "selected vehicle type is forbidden”");
-        }
-
         if (airTemperatureExtraFee == null){
 
             airTemperatureExtraFee = new AirTemperatureExtraFee();
             airTemperatureExtraFee.setAirTemperatureExtraFee(0.0);
+        }
+
+        if (airTemperatureExtraFee.getForbidden()){
+            throw new IllegalArgumentException("“Usage of\n" +
+                    "selected vehicle type is forbidden”");
         }
 
         priceModel.setAirTemperatureExtraFee(airTemperatureExtraFee);

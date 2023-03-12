@@ -7,7 +7,6 @@ import app.model.Weather;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import app.model.Observation;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,15 +18,18 @@ import java.net.URL;
 import java.util.List;
 
 @Service
-public class WeatherUpdateService {
+public class weatherUpdateService {
     private static final String WEATHER_API_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
-    @Autowired
-    private WeatherRepository weatherRepository;
-    @Autowired
-    private CityRepository cityRepository;
+    private final WeatherRepository weatherRepository;
+    private final CityRepository cityRepository;
+
+    public weatherUpdateService(WeatherRepository weatherRepository, CityRepository cityRepository) {
+        this.weatherRepository = weatherRepository;
+        this.cityRepository = cityRepository;
+    }
 
     @EventListener(ApplicationReadyEvent.class)
-    private void onStartup() {
+    public void onStartup() {
         updateWeatherDataFromFile(); // For testing
         // updateWeatherData();
     }

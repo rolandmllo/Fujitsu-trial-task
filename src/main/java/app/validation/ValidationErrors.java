@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public class ValidationErrors {
 
     @Getter
-    private List<ValidationError> errors = new ArrayList<>();
+    private final List<ValidationError> errors = new ArrayList<>();
 
     public void addErrorMessage(String message) {
         errors.add(new ValidationError(message));
