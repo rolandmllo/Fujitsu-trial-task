@@ -1,13 +1,10 @@
-package app.services.helper;
+package app.util;
 
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.TimeZone;
 
 public class TimestampXMLAdapter extends XmlAdapter<String, LocalDateTime> {

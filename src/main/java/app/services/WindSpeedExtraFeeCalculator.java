@@ -2,7 +2,6 @@ package app.services;
 
 import app.Dao.WindSpeedExtraFeeRepository;
 import app.model.PriceModel;
-import app.model.WeatherPhenomenonExtraFee;
 import app.model.WindSpeedExtraFee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,11 @@ public class WindSpeedExtraFeeCalculator extends AbstractFeeCalculator{
 
         WindSpeedExtraFee windSpeedExtraFee = windSpeedExtraFeeRepository
                 .findWSEFRateByTempAndVehicleId(windSpeed, vehicleId);
+
+        if (windSpeedExtraFee.getForbidden()){
+            throw new IllegalArgumentException("“Usage of\n" +
+                    "selected vehicle type is forbidden”");
+        }
 
         if (windSpeedExtraFee == null){
             windSpeedExtraFee = new WindSpeedExtraFee();

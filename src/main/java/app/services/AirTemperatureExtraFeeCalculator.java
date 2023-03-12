@@ -20,6 +20,11 @@ public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
         AirTemperatureExtraFee airTemperatureExtraFee = airTemperatureExtraFeeRepository
                 .findATEFRateByTempAndVehicleId(airTemperature, vehicleId);
 
+        if (airTemperatureExtraFee.getForbidden()){
+            throw new IllegalArgumentException("“Usage of\n" +
+                    "selected vehicle type is forbidden”");
+        }
+
         if (airTemperatureExtraFee == null){
 
             airTemperatureExtraFee = new AirTemperatureExtraFee();
