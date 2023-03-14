@@ -4,7 +4,6 @@
 
 Food delivery application sub-functionality to 
 calculate a delivery fees according to region and weather data.
-Weather data
 
 Used technology:
 * Java
