@@ -20,7 +20,7 @@ import java.util.List;
  * The type Weather update service from URL and with CRONJOB support.
  */
 @Service
-public class weatherUpdateService {
+public class WeatherUpdateService {
     private static final String WEATHER_API_URL = "https://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
     private final WeatherRepository weatherRepository;
     private final CityRepository cityRepository;
@@ -31,7 +31,7 @@ public class weatherUpdateService {
      * @param weatherRepository the weather repository
      * @param cityRepository    the city repository
      */
-    public weatherUpdateService(WeatherRepository weatherRepository, CityRepository cityRepository) {
+    public WeatherUpdateService(WeatherRepository weatherRepository, CityRepository cityRepository) {
         this.weatherRepository = weatherRepository;
         this.cityRepository = cityRepository;
     }
@@ -45,8 +45,8 @@ public class weatherUpdateService {
         updateWeatherData();
     }
 
-    @Scheduled(cron="0 15 0 * * ?")
-    private void onSchedule() {
+    @Scheduled(cron="0 15 * * * *")
+    public void onSchedule() {
         updateWeatherData();
     }
 
