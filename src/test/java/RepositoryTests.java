@@ -213,20 +213,15 @@ public class RepositoryTests {
     @Test
     public void shouldFindWeatherPhenomenonExtraFeeByPartialNameFromDatabase(){
 
-        Vehicle vehicle = new Vehicle();
-        String vehicleType = "testVehicle";
-        vehicle.setVehicleType(vehicleType);
-        vehicleRepository.save(vehicle);
+        Vehicle vehicle = vehicleRepository.findByVehicleType("bike");
+        String phenomenon = "Heavy snow shower";
 
-        WeatherPhenomenonExtraFee wpef = new WeatherPhenomenonExtraFee();
-        wpef.setVehicle(vehicle);
-        wpef.setWeatherPhenomenon("light snow");
-        wpefRepository.save(wpef);
-
-        var savedWPEF = wpefRepository.findWPEFRateByPhenomenonAndVehicleId("snow",
+        var savedWPEF = wpefRepository.findWPEFRateByPhenomenonAndVehicleId(phenomenon,
                 vehicle.getId());
 
-        assertThat(savedWPEF).isEqualTo(wpef);
+        System.out.println(savedWPEF);
+
+        assertThat(savedWPEF.getWeatherPhenomenon()).isEqualTo("snow");
     }
 
 

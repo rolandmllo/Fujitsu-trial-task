@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * The type Wsef controller.
+ * The type WSEF controller.
  */
 @RestController
 @RequestMapping("/api")

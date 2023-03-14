@@ -41,8 +41,8 @@ public class weatherUpdateService {
      */
     @EventListener(ApplicationReadyEvent.class)
     public void onStartup() {
-        updateWeatherDataFromFile(); // For testing
-        // updateWeatherData();
+        // updateWeatherDataFromFile(); // For testing
+        updateWeatherData();
     }
 
     @Scheduled(cron="0 15 0 * * ?")
