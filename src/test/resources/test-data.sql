@@ -92,7 +92,7 @@ values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Bike'),
         'sleet', false, 1);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
-values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Scooter'),
+values ((SELECT id FROM  vehicle WHERE vehicle_type = 'scooter'),
         'sleet', false, 1);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
@@ -100,7 +100,7 @@ values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Bike'),
         'snow', false, 1);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
-values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Scooter'),
+values ((SELECT id FROM  vehicle WHERE vehicle_type = 'scooter'),
         'snow', false, 1);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
@@ -108,7 +108,7 @@ values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Bike'),
         'rain', false, 0.5);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
-values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Scooter'),
+values ((SELECT id FROM  vehicle WHERE vehicle_type = 'scooter'),
         'rain', false, 0.5);
 
 
@@ -117,7 +117,7 @@ values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Bike'),
         'glaze', true, 0);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
-values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Scooter'),
+values ((SELECT id FROM  vehicle WHERE vehicle_type = 'scooter'),
         'glaze', true, 0);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
@@ -125,7 +125,7 @@ values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Bike'),
         'hail', true, 0);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
-values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Scooter'),
+values ((SELECT id FROM  vehicle WHERE vehicle_type = 'scooter'),
         'hail', true, 0);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
@@ -133,7 +133,7 @@ values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Bike'),
         'thunder', true, 0);
 
 INSERT INTO weather_phenomenon_extra_fee (vehicle_id, weather_phenomenon, forbidden, weather_phenomenon_extra_fee)
-values ((SELECT id FROM  vehicle WHERE vehicle_type = 'Scooter'),
+values ((SELECT id FROM  vehicle WHERE vehicle_type = 'scooter'),
         'thunder', true, 0);
 
 

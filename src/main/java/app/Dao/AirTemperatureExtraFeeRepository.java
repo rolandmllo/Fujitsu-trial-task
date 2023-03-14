@@ -9,7 +9,7 @@ public interface AirTemperatureExtraFeeRepository extends JpaRepository<AirTempe
 
     @Query(value = "SELECT * FROM air_temperature_extra_fee " +
             "WHERE lower_temp <= :temperature AND :temperature <= higher_temp " +
-            "AND vehicle_id = :vehicleId",nativeQuery = true)
+            "AND vehicle_id = :vehicleId LIMIT 1",nativeQuery = true)
     AirTemperatureExtraFee findATEFRateByTempAndVehicleId(@Param("temperature") Double temperature,
                                                           @Param("vehicleId") Long vehicleId);
 

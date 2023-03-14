@@ -9,7 +9,7 @@ public interface WindSpeedExtraFeeRepository extends JpaRepository<WindSpeedExtr
 
     @Query(value = "SELECT * FROM wind_speed_extra_fee " +
             "WHERE lower_wind_speed <= :windSpeed AND :windSpeed <= higher_wind_speed " +
-            "AND vehicle_id = :vehicleId",nativeQuery = true)
+            "AND vehicle_id = :vehicleId LIMIT 1", nativeQuery = true)
     WindSpeedExtraFee findWSEFRateByTempAndVehicleId(@Param("windSpeed") Double windSpeed,
                                                      @Param("vehicleId") Long vehicleId);
 

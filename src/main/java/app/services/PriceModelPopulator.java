@@ -61,9 +61,13 @@ public class PriceModelPopulator {
     }
 
     private void setInputs(String cityInput, String vehicleInput, LocalDateTime weatherDateTime){
+        if((cityInput == null && cityInput.trim().isEmpty()) ||
+                (vehicleInput == null && vehicleInput.trim().isEmpty())) {
+            throw new IllegalArgumentException("City and Vehicle parameters are mandatory");
+        }
 
-        City city = getCity(cityInput.trim());
-        Vehicle vehicle = getVehicle(vehicleInput.trim());
+        City city = getCity(cityInput.trim().toLowerCase());
+        Vehicle vehicle = getVehicle(vehicleInput.trim().toLowerCase());
 
         priceModel.setCity(city);
         priceModel.setVehicle(vehicle);

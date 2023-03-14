@@ -36,8 +36,7 @@ public class WindSpeedExtraFeeCalculator extends AbstractFeeCalculator{
         }
 
         if (windSpeedExtraFee.getForbidden()){
-            throw new IllegalArgumentException("“Usage of\n" +
-                    "selected vehicle type is forbidden”");
+            throw new IllegalArgumentException("Usage of selected vehicle type is forbidden");
         }
 
 

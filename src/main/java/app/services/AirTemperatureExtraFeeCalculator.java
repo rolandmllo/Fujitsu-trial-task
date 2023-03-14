@@ -37,8 +37,7 @@ public class AirTemperatureExtraFeeCalculator extends AbstractFeeCalculator {
         }
 
         if (airTemperatureExtraFee.getForbidden()){
-            throw new IllegalArgumentException("“Usage of\n" +
-                    "selected vehicle type is forbidden”");
+            throw new IllegalArgumentException("Usage of selected vehicle type is forbidden");
         }
 
         priceModel.setAirTemperatureExtraFee(airTemperatureExtraFee);

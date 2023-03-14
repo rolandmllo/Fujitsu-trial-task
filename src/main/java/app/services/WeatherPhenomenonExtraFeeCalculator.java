@@ -24,7 +24,10 @@ public class WeatherPhenomenonExtraFeeCalculator extends AbstractFeeCalculator{
     @Override
     public PriceModel applyFeeRate(PriceModel priceModel) {
 
-        String phenomenon = priceModel.getWeather().getPhenomenon();
+        String phenomenon = priceModel
+                .getWeather().getPhenomenon();
+        System.out.println(phenomenon);
+
         Long vehicleId = priceModel.getVehicle().getId();
 
         WeatherPhenomenonExtraFee weatherPhenomenonExtraFee = weatherPhenomenonExtraFeeRepository
@@ -33,6 +36,10 @@ public class WeatherPhenomenonExtraFeeCalculator extends AbstractFeeCalculator{
         if (weatherPhenomenonExtraFee == null){
             weatherPhenomenonExtraFee = new WeatherPhenomenonExtraFee();
             weatherPhenomenonExtraFee.setWeatherPhenomenonExtraFee(0.0);
+        }
+
+        if (weatherPhenomenonExtraFee.getForbidden()){
+            throw new IllegalArgumentException("Usage of selected vehicle type is forbidden");
         }
 
         priceModel.setWeatherPhenomenonExtraFee(weatherPhenomenonExtraFee);
