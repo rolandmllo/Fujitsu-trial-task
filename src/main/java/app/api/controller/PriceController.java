@@ -52,37 +52,9 @@ public class PriceController {
                                  @RequestParam String vehicle,
                                  @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime datetime) {
 
-        System.out.println(city);
-        System.out.println(vehicle);
-        System.out.println(datetime);
-        System.out.println();
         PriceModel priceModel = priceModelPopulator.populate(city, vehicle, datetime);
 
         return priceModel.getTotalPrice();
     }
 
-
-    /**
-     * Get weather data list.
-     *
-     * @return the list
-     */
-    @GetMapping("api/weather")
-    public List<Weather> getWeatherData(){
-        var weather =  weatherRepository.findAll();
-        System.out.println(weather);
-        return weather;
-    }
-
-    /**
-     * Get city data list.
-     *
-     * @return the list
-     */
-    @GetMapping("api/cities")
-    public List<City> getCityData(){
-        var city =  cityRepository.findAll();
-        System.out.println(city);
-        return city;
-    }
 }
