@@ -1,6 +1,6 @@
 # Fujitsu Java Trial Task
 
-### Autohor: Roland Mällo
+### Author: Roland Mällo
 
 Food delivery application sub-functionality to 
 calculate a delivery fees according to region and weather data.
